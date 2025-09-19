@@ -1,48 +1,18 @@
-# services:
-#   api:
-#     build:
-#       dockerfile: ./code/deployment/api/Dockerfile
-#       context: .
-#     ports:
-#       - "8000:8000"
-#     volumes:
-#       - ./models:/app/models
-
-#   app:
-#     build:
-#       dockerfile: ./code/deployment/app/Dockerfile
-#       context: .
-#     ports:
-#       - "8501:8501"
-#     environment:
-#       - API_URL=http://api:8000
-
-
 services:
-  api: 
-    build: 
-      dockerfile: ./code/deployment/api/Dockerfile
-      context: .
+  api:
+    build:
+      context: ../..
+      dockerfile: code/deployment/api/Dockerfile
     ports:
       - "8000:8000"
-    environment:
-      MODEL_DIR: /models
-    volumes:
-    - ./models:/models   
-    networks:
-      - net
 
-  app: 
-    build: 
-      dockerfile: ./code/deployment/app/Dockerfile
-      context: .
+  app:
+    build:
+      context: ../..
+      dockerfile: code/deployment/app/Dockerfile
     ports:
-      - "3000:8501"
+      - "8501:8501"
     environment:
-      BACKEND_URL: http://api:8000
-    networks:
-      - net
-
-networks:
-  net:
-    driver: bridge  
+      - API_URL=http://api:8000
+    depends_on:
+      - api

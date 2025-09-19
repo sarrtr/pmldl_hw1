@@ -37,5 +37,4 @@ with st.expander("Predict", expanded=False):
             features = [age, sex, bmi, bp, s1, s2, s3, s4, s5, s6]
             data = {"data": [features]}
             result = predict(data)
-            if result and "predictions" in result:
-                st.success(f"Prediction: {result['predictions'][0]:.4f}")
+            st.success(f"Prediction: {result['predictions'][0]:.4f}")

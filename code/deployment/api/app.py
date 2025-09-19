@@ -2,19 +2,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import numpy as np
-import os
 import joblib
 
 app = FastAPI()
 
-MODEL_DIR = os.environ.get("MODEL_DIR", "models")
-model_path = os.path.join(MODEL_DIR, "random_forest.pkl")
-
-model = joblib.load(model_path)
+model = joblib.load("random_forest.pkl")
 
 class PredictRequest(BaseModel):
     data: List[List[float]]
-    # round: Optional[int] = None  
 
 class PredictResponse(BaseModel):
     predictions: List[float]
